@@ -70,7 +70,9 @@ class _PasswordFieldState extends State<PasswordField> {
           style:
                GoogleFonts.raleway(color: AppColors.HEADINGCOLOR, fontSize: 17),
         ),
-     
+      const SizedBox(
+          height: 10,
+        ),
         TextFormField(
           key: widget.fieldKey,
           obscureText: _obscureText,
@@ -97,13 +99,13 @@ class _PasswordFieldState extends State<PasswordField> {
             contentPadding: const EdgeInsets.only(left: 10, top: 15),
             hintText: widget.hintText,
             focusColor: const Color(0xffF7F7F7),
-            prefixIcon: Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: SvgPicture.asset(
-                "assets/icons/lock.svg",
-                color: AppColors.DIFCOLOR,
-              ),
-            ),
+            // prefixIcon: Padding(
+            //   padding: const EdgeInsets.all(14.0),
+            //   child: SvgPicture.asset(
+            //     "assets/icons/lock.svg",
+            //     color: AppColors.DIFCOLOR,
+            //   ),
+            // ),
 
             labelStyle: const TextStyle(color: AppColors.ASHDEEP),
             // contentPadding: EdgeInsets.only(left: 10),
