@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "788690157237",
+    "project_id": "emergency-app-c604b",
+    "storage_bucket": "emergency-app-c604b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788690157237:android:9c5213fda1711773b388fc",
+        "android_client_info": {
+          "package_name": "com.hackathon.emergency_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR5CBFaQpcFAbFn1TkADBchzC_VtDyKO8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

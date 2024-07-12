@@ -1,5 +1,7 @@
 import 'package:emergency_alert/AppTheme/app_config.dart';
 import 'package:emergency_alert/Views/Home/home_page.dart';
+import 'package:emergency_alert/Views/Home/nearby_hospitals.dart';
+import 'package:emergency_alert/Widgets/call_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -37,16 +39,16 @@ class _BaseHomePageState extends State<BaseHomePage> {
       HomePage(),
       Text("data"),
       Text("data"),
-      Text("data"),
+      NearbyHospital(),
     ];
     return Scaffold(
       backgroundColor: AppColors.WHITE,
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-      // floatingActionButton:  Padding(
-      //   padding: const EdgeInsets.only(bottom:4.0),
-      //   child: LottieBuilder.asset("assets/images/call.json", height: 180, width: 180, fit: BoxFit.contain,),
-      // ),
-      // floatingActionButtonLocation : FloatingActionButtonLocation.centerDocked,
+      floatingActionButton:  Padding(
+        padding: const EdgeInsets.only(bottom:4.0),
+        child: CallButton()
+      ),
+      floatingActionButtonLocation : FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
         elevation: 4,
         onTap: _onItemTapped,

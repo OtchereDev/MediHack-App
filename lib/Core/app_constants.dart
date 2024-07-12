@@ -15,3 +15,6 @@ List<Map<String, dynamic>> buttonName = [
   {"title": "Patient", "icon": "assets/icons/user.svg"},
   {"title": "Doctor", "icon": "assets/icons/setho.svg"}
 ];
+
+
+const messi = "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcQZ6zHnYqqz0B-_1aq8wPayo1_bFn_CES3fqvITmR8aoHNm27Q5mXxF-aMHAWVQavmLZ4kBu2YnkCu5Xyk";

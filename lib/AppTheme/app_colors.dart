@@ -13,7 +13,7 @@ class AppColors {
   static const ASH = Color(0xffCCCCCC);
   static const DIFCOLOR = Color(0xff94A3B8);
   static const LIGHTASH = Color(0XFFEFEFF4);
-  static const BACKREDCOLOR = Color(0XFFE9D8D8);
+  static const BACKREDCOLOR = Color(0xffF2F4FA);
   static const ICONCOLOR = Color(0xFFE6A9A9);
   static const LIGHTGREEN = Color(0xffD8F2E6);
 // ignore: use_full_hex_values_for_flutter_colors

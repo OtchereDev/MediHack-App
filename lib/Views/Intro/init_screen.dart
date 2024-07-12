@@ -1,4 +1,5 @@
 import 'package:emergency_alert/Services/Local/shared_prefs_manager.dart';
+import 'package:emergency_alert/Views/Auth/login.dart';
 import 'package:emergency_alert/Views/GetStarted/getstarted.dart';
 import 'package:emergency_alert/Views/Onboarding/onboard_page.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +123,7 @@ class _InitScreenState extends State<InitScreen> {
           const Duration(seconds: 2),
           () {
             return AppNavigationHelper.navigateAndReplaceWidget(
-                context, OnboardScreen());
+                context,  LoginPage());
           },
         );
       // } else {
