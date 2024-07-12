@@ -1,7 +1,6 @@
 import 'package:emergency_alert/AppTheme/app_config.dart';
 import 'package:emergency_alert/Model/abulance_model.dart';
 import 'package:emergency_alert/Provider/Ambulance/ampbulance_provider.dart';
-import 'package:emergency_alert/Views/Ambulance/ambulance_map.dart';
 import 'package:emergency_alert/Views/Ambulance/mapview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,9 +9,7 @@ class AmbulanceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Ambulance Tracker'),
-      // ),
+     
       body: Consumer<AmbulanceStatusProvider>(
         builder: (context, provider, child) {
           if (provider.ambulanceStatus == null) {
@@ -35,12 +32,7 @@ class AmbulanceInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        GoogleMapPage(),
-        // AmbulanceMap(
-        //   currentLat: status.currentLat,
-        //   currentLng: status.currentLng,
-        //   destinationAddress: status.destinationAddress,
-        // ),
+       const GoogleMapPage(),
         Padding(
           padding: const EdgeInsets.only(bottom: 40.0, right: 20, left: 20),
           child: Align(

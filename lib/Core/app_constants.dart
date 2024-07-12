@@ -1,5 +1,5 @@
 const String kBaseUrl = "https://api.spectrahealthgh.com";
-const String kGoogleApiKey = "AIzaSyC5Boj4dIR3QYo4ezPgwFZVDsMHDaRVR28";
+const String kGoogleApiKey = "AIzaSyBYHURH4hj-Qy5Pskwh3fevaYqpFhPqHPQ";
 
 //"AIzaSyCcGeOs6pbNgrCSvMarV34r0Oit6eEewtw";
 

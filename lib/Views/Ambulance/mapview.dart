@@ -4,21 +4,35 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 
-class GoogleMapPage extends StatelessWidget {
+class GoogleMapPage extends StatefulWidget {
   const GoogleMapPage({super.key});
 
   @override
+  State<GoogleMapPage> createState() => _GoogleMapPageState();
+}
+
+class _GoogleMapPageState extends State<GoogleMapPage> {
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+     await context.read<MapProvider>().fetchLocationUpdates();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => MapProvider(),
-      child: Scaffold(
+    return  Scaffold(
         body: Consumer<MapProvider>(
-          builder: (context, mapProvider, child) {
+
+          builder: (context, mapProvider, _) {
+            // print(mapProvider.currentPosition);
             return mapProvider.currentPosition == null
                 ? const Center(child: CircularProgressIndicator())
                 : GoogleMap(
-                    initialCameraPosition: const CameraPosition(
-                      target: MapProvider.googlePlex,
+                    initialCameraPosition:  CameraPosition(
+                      target: mapProvider.destinationLoc,
                       zoom: 13,
                     ),
                     markers: {
@@ -28,22 +42,18 @@ class GoogleMapPage extends StatelessWidget {
                           icon: mapProvider.ambulanceIcon ?? BitmapDescriptor.defaultMarker,
                           position: mapProvider.currentPosition!,
                         ),
-                      Marker(
-                        markerId: const MarkerId('sourceLocation'),
-                        icon: mapProvider.hospitalIcon ?? BitmapDescriptor.defaultMarker,
-                        position: MapProvider.googlePlex,
-                      ),
+                     
                       Marker(
                         markerId: const MarkerId('destinationLocation'),
                         icon: mapProvider.hospitalIcon ?? BitmapDescriptor.defaultMarker,
-                        position: MapProvider.mountainView,
+                        position: mapProvider.destinationLoc,
                       ),
                     },
                     polylines: Set<Polyline>.of(mapProvider.polylines.values),
                   );
           },
         ),
-      ),
+      
     );
   }
 }

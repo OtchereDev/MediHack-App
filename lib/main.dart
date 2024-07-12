@@ -1,4 +1,5 @@
 import 'package:emergency_alert/Provider/Ambulance/ampbulance_provider.dart';
+import 'package:emergency_alert/Provider/Map/map_provider.dart';
 import 'package:emergency_alert/Provider/Utils/util_provider.dart';
 import 'package:emergency_alert/Views/Intro/init_screen.dart';
 import 'package:emergency_alert/firebase_options.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => UtilPovider()),
         ChangeNotifierProvider(create: (_) => AmbulanceStatusProvider()),
+        ChangeNotifierProvider(create: (_) => MapProvider()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
