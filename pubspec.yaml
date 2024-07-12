@@ -54,7 +54,9 @@ dependencies:
   intl: ^0.19.0
   cloud_firestore: ^5.1.0
   google_maps_flutter: ^2.7.0
-  geocoding: ^3.0.0
+  flutter_image: ^4.1.11
+  flutter_polyline_points: ^2.1.0
+  location: ^7.0.0
 
 dev_dependencies:
   flutter_test:

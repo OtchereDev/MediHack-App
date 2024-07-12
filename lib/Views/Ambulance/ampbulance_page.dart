@@ -2,6 +2,7 @@ import 'package:emergency_alert/AppTheme/app_config.dart';
 import 'package:emergency_alert/Model/abulance_model.dart';
 import 'package:emergency_alert/Provider/Ambulance/ampbulance_provider.dart';
 import 'package:emergency_alert/Views/Ambulance/ambulance_map.dart';
+import 'package:emergency_alert/Views/Ambulance/mapview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,11 +35,12 @@ class AmbulanceInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        AmbulanceMap(
-          currentLat: status.currentLat,
-          currentLng: status.currentLng,
-          destinationAddress: status.destinationAddress,
-        ),
+        GoogleMapPage(),
+        // AmbulanceMap(
+        //   currentLat: status.currentLat,
+        //   currentLng: status.currentLng,
+        //   destinationAddress: status.destinationAddress,
+        // ),
         Padding(
           padding: const EdgeInsets.only(bottom: 40.0, right: 20, left: 20),
           child: Align(

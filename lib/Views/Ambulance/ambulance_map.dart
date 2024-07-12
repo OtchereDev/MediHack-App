@@ -1,90 +1,97 @@
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geocoding/geocoding.dart';
+// import 'dart:typed_data';
 
-class AmbulanceMap extends StatefulWidget {
-  final double currentLat;
-  final double currentLng;
-  final String destinationAddress;
+// import 'package:flutter/material.dart';
+// import 'dart:ui' as ui;
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:geocoding/geocoding.dart';
+// import 'package:flutter/services.dart' show rootBundle;
+// import 'package:flutter_image/flutter_image.dart';
 
-  AmbulanceMap({required this.currentLat, required this.currentLng, required this.destinationAddress});
 
-  @override
-  _AmbulanceMapState createState() => _AmbulanceMapState();
-}
+// class AmbulanceMap extends StatefulWidget {
+//   final double currentLat;
+//   final double currentLng;
+//   final String destinationAddress;
 
-class _AmbulanceMapState extends State<AmbulanceMap> {
-  late GoogleMapController mapController;
-  late LatLng destinationLatLng;
-  Set<Marker> _markers = {};
-  Set<Polyline> _polylines = {};
+//   AmbulanceMap({required this.currentLat, required this.currentLng, required this.destinationAddress});
 
-  BitmapDescriptor? ambulanceIcon;
-  BitmapDescriptor? hospitalIcon;
+//   @override
+//   _AmbulanceMapState createState() => _AmbulanceMapState();
+// }
 
-  @override
-  void initState() {
-    super.initState();
-    _loadCustomIcons();
-    _setDestinationLatLng();
-  }
+// class _AmbulanceMapState extends State<AmbulanceMap> {
+//   late GoogleMapController mapController;
+//   late LatLng destinationLatLng;
+//   Set<Marker> _markers = {};
+//   Set<Polyline> _polylines = {};
 
-  Future<void> _loadCustomIcons() async {
-    ambulanceIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(size: Size(20, 20)), 'assets/icons/ambulance.png');
-    hospitalIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(size: Size(20, 20)), 'assets/icons/hospital.png');
-    _setMarkersAndPolylines();
-  }
+//   BitmapDescriptor? ambulanceIcon;
+//   BitmapDescriptor? hospitalIcon;
 
-  Future<void> _setDestinationLatLng() async {
-    List<Location> locations = await locationFromAddress(widget.destinationAddress);
-    if (locations.isNotEmpty) {
-      destinationLatLng = LatLng(locations[0].latitude, locations[0].longitude);
-      _setMarkersAndPolylines();
-    }
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     _loadCustomIcons();
+//     _setDestinationLatLng();
+//   }
 
-  void _setMarkersAndPolylines() {
-    if (ambulanceIcon != null && hospitalIcon != null) {
-      _markers.add(Marker(
-        markerId: MarkerId('ambulance'),
-        position: LatLng(widget.currentLat, widget.currentLng),
-        icon: ambulanceIcon!,
-      ));
+//   Future<void> _loadCustomIcons() async {
+//     ambulanceIcon = await _createCustomMarkerImage('assets/icons/ambulance.png', 150);
+//     hospitalIcon = await _createCustomMarkerImage('assets/icons/hospital.png', 150);
+//     _setMarkersAndPolylines();
+//   }
 
-      _markers.add(Marker(
-        markerId: MarkerId('destination'),
-        position: destinationLatLng,
-        icon: hospitalIcon!,
-      ));
+//   Future<BitmapDescriptor> _createCustomMarkerImage(String path, int width) async {
+//     final ByteData data = await rootBundle.load(path);
+//     final ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+//     final ui.FrameInfo fi = await codec.getNextFrame();
+//     final ByteData? byteData = await fi.image.toByteData(format: ui.ImageByteFormat.png);
+//     final Uint8List resizedImageData = byteData!.buffer.asUint8List();
+//     return BitmapDescriptor.fromBytes(resizedImageData);
+//   }
 
-      _polylines.add(Polyline(
-        polylineId: PolylineId('route'),
-        points: [
-          LatLng(widget.currentLat, widget.currentLng),
-          destinationLatLng,
-        ],
-        color: Colors.blue,
-        width: 5,
-      ));
 
-      setState(() {});
-    }
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    return GoogleMap(
-      onMapCreated: (controller) {
-        mapController = controller;
-      },
-      initialCameraPosition: CameraPosition(
-        target: LatLng(widget.currentLat, widget.currentLng),
-        zoom: 14.0,
-      ),
-      markers: _markers,
-      polylines: _polylines,
-    );
-  }
-}
+//   void _setMarkersAndPolylines() {
+//     if (ambulanceIcon != null && hospitalIcon != null) {
+//       _markers.add(Marker(
+//         markerId: MarkerId('ambulance'),
+//         position: LatLng(widget.currentLat, widget.currentLng),
+//         icon: ambulanceIcon!,
+//       ));
+
+//       _markers.add(Marker(
+//         markerId: MarkerId('destination'),
+//         position: destinationLatLng,
+//         icon: hospitalIcon!,
+//       ));
+
+//       _polylines.add(Polyline(
+//         polylineId: PolylineId('route'),
+//         points: [
+//           LatLng(widget.currentLat, widget.currentLng),
+//           destinationLatLng,
+//         ],
+//         color: Colors.blue,
+//         width: 5,
+//       ));
+
+//       setState(() {});
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GoogleMap(
+//       onMapCreated: (controller) {
+//         mapController = controller;
+//       },
+//       initialCameraPosition: CameraPosition(
+//         target: LatLng(widget.currentLat, widget.currentLng),
+//         zoom: 18.0,
+//       ),
+//       markers: _markers,
+//       polylines: _polylines,
+//     );
+//   }
+// }
