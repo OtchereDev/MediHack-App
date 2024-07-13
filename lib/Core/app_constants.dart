@@ -18,3 +18,7 @@ List<Map<String, dynamic>> buttonName = [
 
 
 const messi = "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcQZ6zHnYqqz0B-_1aq8wPayo1_bFn_CES3fqvITmR8aoHNm27Q5mXxF-aMHAWVQavmLZ4kBu2YnkCu5Xyk";
+
+const tempAgoraKeys ="007eJxTYLi2q3BXO2d35Ov0q78/GMy5JBnBH7FD9S3PZnXB1408CzYpMKRaWhgam6RYpJmYG5pYGKRYWJpYmicbWSSlmhhbmhmbWSROSmsIZGSYxFTLwsgAgSA+P0NqbmpRempecmV8Yk5qUQkDAwDNciMK";
+const agoraApiKey = "e98134d8f471480d89497c28be439636";
+const channelName = "emergency_alert";

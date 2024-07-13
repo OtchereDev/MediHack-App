@@ -4,6 +4,8 @@ import 'package:emergency_alert/Core/Helpers/navigation_helper.dart';
 import 'package:emergency_alert/Core/app_constants.dart';
 import 'package:emergency_alert/Utils/utils.dart';
 import 'package:emergency_alert/Views/Ambulance/ampbulance_page.dart';
+import 'package:emergency_alert/Views/Ambulance/mapview.dart';
+import 'package:emergency_alert/Views/Ambulance/searching_nearest_ambulance.dart';
 import 'package:emergency_alert/Views/FirstAidTutorials/first_aid_tutorial.dart';
 import 'package:emergency_alert/Views/Home/nearby_hospitals.dart';
 import 'package:flutter/material.dart';
@@ -90,39 +92,43 @@ class HomePage extends StatelessWidget {
                         textColor: AppColors.PRIMARYCOLOR,
                         title: "SOS",
                         isSVG: true,
-                        onTap: (){
-                          showDialog(context: context, builder: (context){
-                            return const Dialog(
-                              child: SosDialogContainer(),
-                            );
-                          });
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const Dialog(
+                                  child: SosDialogContainer(),
+                                );
+                              });
                         },
                       ),
-                       HomeTabButton(
+                      HomeTabButton(
                         icon: "hospital",
-                        color: Color(0xff29044F),
-                        textColor: Color(0xff29044F),
+                        color: const Color(0xff29044F),
+                        textColor: const Color(0xff29044F),
                         title: "Nearby \nHospital",
-                        onTap: (){
-                          AppNavigationHelper.navigateToWidget(context, NearbyHospital());
+                        onTap: () {
+                          AppNavigationHelper.navigateToWidget(
+                              context, const NearbyHospital());
                         },
                       ),
                     ],
                   ),
                   AppSpaces.height20,
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       HomeTabButton(
                         icon: "first-aid",
-                        color: Color(0xff200D92),
-                        textColor: Color(0xff200D92),
+                        color: const Color(0xff200D92),
+                        textColor: const Color(0xff200D92),
                         title: "First Aid\nTutorials",
-                        onTap: (){
-                          AppNavigationHelper.navigateToWidget(context, FirstAidTutorial());
+                        onTap: () {
+                          AppNavigationHelper.navigateToWidget(
+                              context, const FirstAidTutorial());
                         },
                       ),
-                      HomeTabButton(
+                      const HomeTabButton(
                         icon: "911",
                         color: Color(0xff1DB63A),
                         title: "Emergency\nNumbers",
@@ -149,43 +155,106 @@ class SosDialogContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: AppColors.WHITE
-      ),
-      child:  Column(
+          borderRadius: BorderRadius.circular(10), color: AppColors.WHITE),
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           const Padding(
             padding: EdgeInsets.all(15.0),
-            child: Text("-- Choose one --", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+            child: Text(
+              "-- Choose one --",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
           ),
           const CustomDivider(),
           ListTile(
             title: const Text("911"),
-            leading: Image.asset('assets/icons/emergency-call.png', height: 30,width: 30,),
-            onTap: (){
+            leading: Image.asset(
+              'assets/icons/emergency-call.png',
+              height: 30,
+              width: 30,
+            ),
+            onTap: () {
               Navigator.pop(context);
             },
           ),
-          
-            ListTile(
+          ListTile(
             title: const Text("Ambulance"),
-            leading: Image.asset('assets/icons/ambulance.png', height: 30,width: 30,),
-            onTap: (){
+            leading: Image.asset(
+              'assets/icons/ambulance.png',
+              height: 30,
+              width: 30,
+            ),
+            onTap: () {
               Navigator.pop(context);
-              AppNavigationHelper.navigateToWidget(context, AmbulanceScreen());
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15)),
+                        child: SearchingForNearestAmbulance(
+                          title: "Ambulance",
+                          onTap: () {
+                            AppNavigationHelper.navigateToWidget(
+                                context, AmbulanceScreen());
+                          },
+                        ));
+                  });
             },
-            
           ),
-            ListTile(
+          ListTile(
             title: const Text("Fire Station"),
-            leading: Image.asset('assets/icons/firefighter.png', height: 30,width: 30,),
-
+            leading: Image.asset(
+              'assets/icons/firefighter.png',
+              height: 30,
+              width: 30,
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15)),
+                        child: SearchingForNearestAmbulance(
+                          title: "Fire Station",
+                          onTap: () {
+                            AppNavigationHelper.navigateToWidget(
+                                context, AmbulanceScreen());
+                          },
+                        ));
+                  });
+            },
           ),
-            ListTile(
+          ListTile(
             title: const Text("Police"),
-            leading: Image.asset('assets/icons/police.png', height: 30,width: 30,),
-
+            leading: Image.asset(
+              'assets/icons/police.png',
+              height: 30,
+              width: 30,
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15)),
+                        child: SearchingForNearestAmbulance(
+                          title: "Police Station",
+                          onTap: () {
+                            AppNavigationHelper.navigateToWidget(
+                                context, AmbulanceScreen());
+                          },
+                        ));
+                  });
+            },
           ),
           AppSpaces.height20
         ],
@@ -201,7 +270,11 @@ class CustomDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Divider(height: 1,thickness: 0.5,color: Colors.black26,);
+    return const Divider(
+      height: 1,
+      thickness: 0.5,
+      color: Colors.black26,
+    );
   }
 }
 
@@ -211,15 +284,14 @@ class HomeTabButton extends StatelessWidget {
   final VoidCallback? onTap;
   final bool isSVG;
   final String icon;
-  const HomeTabButton({
-    super.key,
-    required this.color,
-    required this.title,
-    this.onTap,
-    required this.icon,
-    required this.textColor,
-    this.isSVG = false
-  });
+  const HomeTabButton(
+      {super.key,
+      required this.color,
+      required this.title,
+      this.onTap,
+      required this.icon,
+      required this.textColor,
+      this.isSVG = false});
 
   @override
   Widget build(BuildContext context) {
@@ -234,15 +306,17 @@ class HomeTabButton extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          isSVG ? SvgPicture.asset(
-              "assets/icons/$icon.svg",
-              height: 60,
-              width: 60,
-            ):  Image.asset(
-              "assets/icons/$icon.png",
-              height: 60,
-              width: 60,
-            ),
+            isSVG
+                ? SvgPicture.asset(
+                    "assets/icons/$icon.svg",
+                    height: 60,
+                    width: 60,
+                  )
+                : Image.asset(
+                    "assets/icons/$icon.png",
+                    height: 60,
+                    width: 60,
+                  ),
             AppSpaces.height16,
             Text(
               title,
