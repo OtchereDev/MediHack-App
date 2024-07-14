@@ -9,8 +9,8 @@ class CallButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  GestureDetector(
-      child: Container(
-        height: 180, width: 180,
+      child: SizedBox(
+        height: 180, width: 140,
         child: Stack(
           children: [
         

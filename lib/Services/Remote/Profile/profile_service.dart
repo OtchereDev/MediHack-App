@@ -80,6 +80,33 @@ class ProfileService with AuthBaseRepository implements ProfileRepository {
     });
     return response;
   }
+
+
+  Future replyChat(context, data) async {
+  dynamic responseMap = {"status": false, "message": "", "data": null};
+
+    await post(
+      context,
+      url: "$kBaseUrl/firstaid/chats",
+      data: jsonEncode(data)
+    ).then((response) {
+      print(response?.body);
+
+      if (response != null) {
+        if (response.statusCode == 200) {
+        var dataResponse = json.decode(response.body);
+          responseMap['status'] = true;
+          responseMap['message'] = dataResponse['message'];
+          responseMap['data'] = json.decode(response.body);
+        } else {
+          responseMap['message'] = "Something went wrong";
+          responseMap['data'] = null;
+        }
+      }
+    });
+    return responseMap;
+  }
+
   
   @override
   Future getMyQuestions(context) {

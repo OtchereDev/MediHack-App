@@ -1,6 +1,7 @@
 import 'package:emergency_alert/Services/Local/shared_prefs_manager.dart';
 import 'package:emergency_alert/Views/Auth/login.dart';
 import 'package:emergency_alert/Views/GetStarted/getstarted.dart';
+import 'package:emergency_alert/Views/Home/index.dart';
 import 'package:emergency_alert/Views/Onboarding/onboard_page.dart';
 import 'package:flutter/material.dart';
 import '../../Core/Helpers/navigation_helper.dart';
@@ -111,10 +112,10 @@ class _InitScreenState extends State<InitScreen> {
     if (isAuthenticated) {
     
       
-        // Future.delayed(const Duration(seconds: 3), () {
-        //   return AppNavigationHelper.setRootOldWidget(
-        //       context, const BaseHomePage());
-        // });
+        Future.delayed(const Duration(seconds: 3), () {
+          return AppNavigationHelper.setRootOldWidget(
+              context, const BaseHomePage());
+        });
       
       // }
     } else {

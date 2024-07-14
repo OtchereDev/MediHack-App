@@ -18,7 +18,6 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
       'Content-type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
-      "X-APP-ID":"e9acd58f-3b30-4369-b391-d23c0e20a54d"
     };
   }
 
@@ -39,13 +38,23 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
 
   @override
   Future<dynamic> signin(context, data) async {
-    dynamic responseMap;
+     dynamic responseMap = {"status": false, "message": "", "data": null};
     await post(
       context,
-      url: "$kBaseUrl/referring-doctors/login",
+      url: "$kBaseUrl/auth/login",
       data: jsonEncode(data),
     ).then((response) {
-      if (response != null) responseMap = json.decode(response.body);
+   if (response != null) {
+        var dataResponse = json.decode(response.body);
+        if (response.statusCode == 201) {
+          responseMap['status'] = true;
+          responseMap['message'] = dataResponse['message'];
+          responseMap['data'] = dataResponse;
+        }else{
+          responseMap['message'] = dataResponse['message'];
+          responseMap['data'] = dataResponse;
+        }
+      }
     });
     return responseMap;
   }
@@ -56,7 +65,7 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
     // print(jsonEncode(data));
     await post(
       context,
-      url: "$kBaseUrl/referring-doctors/request-access",
+      url: "$kBaseUrl/auth/signup",
       data: jsonEncode(data),
     ).then((response) {
       if (response != null) {
@@ -78,7 +87,7 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
   @override
   Future<dynamic> sendOtp(context, data) async {
     dynamic responseMap = {"status": false, "message": "", "data": null};
-    await post(context, url: "$kBaseUrl/referring-doctors/request-password-reset", data:jsonEncode(data))
+    await post(context, url: "$kBaseUrl/auth/request-forgot-password", data:jsonEncode(data))
         .then((response) {
       if (response != null) {
         var dataResponse = json.decode(response.body);
@@ -155,7 +164,7 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
   // @override
   Future resetPassword(context, data) async {
        dynamic responseMap = {"status": false, "message": "", "data": null};
-    await post(context, url: "$kBaseUrl/referring-doctors/reset-password", data: jsonEncode(data)).then((response) {
+    await post(context, url: "$kBaseUrl/auth/forgot-password", data: jsonEncode(data)).then((response) {
       if (response != null) {
           var dataResponse = json.decode(response.body);
       print(dataResponse);

@@ -31,7 +31,7 @@ class TextFormWidget extends StatefulWidget {
   final VoidCallback? onTap;
   final VoidCallback? onEditComplete;
   final Color? iconColor;
-  final IconData? icon;
+  final Widget? icon;
   final Widget? prefixIcon;
   final EdgeInsets? padding;
   final TextInputType? inputType;
@@ -101,7 +101,7 @@ class _TextFormWidgetState extends State<TextFormWidget> {
                   ? null
                   : GestureDetector(
                       onTap: widget.onIconTap,
-                      child: Icon(widget.icon, color: widget.iconColor),
+                      child: (widget.icon),
                     ),
               fillColor: Colors.white,
               contentPadding: widget.padding,

@@ -58,8 +58,10 @@ dependencies:
   flutter_polyline_points: ^2.0.0
   location: ^7.0.0
   animated_text_kit: ^4.2.2
-  agora_rtc_engine: ^6.3.2
-  permission_handler: ^11.3.1
+  zego_uikit_prebuilt_call: ^4.14.2
+  feather_icons: ^1.2.0
+  chat_bubbles: ^1.6.0
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:

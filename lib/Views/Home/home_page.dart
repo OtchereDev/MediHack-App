@@ -2,17 +2,21 @@ import 'package:emergency_alert/AppTheme/app_config.dart';
 import 'package:emergency_alert/Component/textformfield.dart';
 import 'package:emergency_alert/Core/Helpers/navigation_helper.dart';
 import 'package:emergency_alert/Core/app_constants.dart';
+import 'package:emergency_alert/Provider/Profile/profile_provider.dart';
 import 'package:emergency_alert/Utils/utils.dart';
 import 'package:emergency_alert/Views/Ambulance/ampbulance_page.dart';
 import 'package:emergency_alert/Views/Ambulance/mapview.dart';
 import 'package:emergency_alert/Views/Ambulance/searching_nearest_ambulance.dart';
 import 'package:emergency_alert/Views/FirstAidTutorials/first_aid_tutorial.dart';
 import 'package:emergency_alert/Views/Home/nearby_hospitals.dart';
+import 'package:emergency_alert/Views/VideoCall/call_hoe_page.dart';
+import 'package:emergency_alert/Views/VideoCall/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -79,7 +83,7 @@ class HomePage extends StatelessWidget {
                     "",
                     false,
                     hint: "Search...",
-                    icon: FeatherIcons.search,
+                    icon: const Icon(FeatherIcons.search),
                   ),
                   AppSpaces.height20,
                   AppSpaces.height16,
@@ -153,112 +157,117 @@ class SosDialogContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: AppColors.WHITE),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Text(
-              "-- Choose one --",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-            ),
+    return Consumer<ProfileProvider>(
+      builder: (context, profile, _) {
+        return Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10), color: AppColors.WHITE),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Text(
+                  "-- Choose one --",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                ),
+              ),
+              const CustomDivider(),
+              ListTile(
+                title: const Text("911"),
+                leading: Image.asset(
+                  'assets/icons/emergency-call.png',
+                  height: 30,
+                  width: 30,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  AppNavigationHelper.navigateToWidget(context, HomeScreen());
+                },
+              ),
+              ListTile(
+                title: const Text("Ambulance"),
+                leading: Image.asset(
+                  'assets/icons/ambulance.png',
+                  height: 30,
+                  width: 30,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15)),
+                            child: SearchingForNearestAmbulance(
+                              title: "Ambulance",
+                              onTap: () {
+                                AppNavigationHelper.navigateToWidget(
+                                    context, AmbulanceScreen());
+                              },
+                            ));
+                      });
+                },
+              ),
+              ListTile(
+                title: const Text("Fire Station"),
+                leading: Image.asset(
+                  'assets/icons/firefighter.png',
+                  height: 30,
+                  width: 30,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15)),
+                            child: SearchingForNearestAmbulance(
+                              title: "Fire Station",
+                              onTap: () {
+                                AppNavigationHelper.navigateToWidget(
+                                    context, AmbulanceScreen());
+                              },
+                            ));
+                      });
+                },
+              ),
+              ListTile(
+                title: const Text("Police"),
+                leading: Image.asset(
+                  'assets/icons/police.png',
+                  height: 30,
+                  width: 30,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15)),
+                            child: SearchingForNearestAmbulance(
+                              title: "Police Station",
+                              onTap: () {
+                                AppNavigationHelper.navigateToWidget(
+                                    context, AmbulanceScreen());
+                              },
+                            ));
+                      });
+                },
+              ),
+              AppSpaces.height20
+            ],
           ),
-          const CustomDivider(),
-          ListTile(
-            title: const Text("911"),
-            leading: Image.asset(
-              'assets/icons/emergency-call.png',
-              height: 30,
-              width: 30,
-            ),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: const Text("Ambulance"),
-            leading: Image.asset(
-              'assets/icons/ambulance.png',
-              height: 30,
-              width: 30,
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            topRight: Radius.circular(15)),
-                        child: SearchingForNearestAmbulance(
-                          title: "Ambulance",
-                          onTap: () {
-                            AppNavigationHelper.navigateToWidget(
-                                context, AmbulanceScreen());
-                          },
-                        ));
-                  });
-            },
-          ),
-          ListTile(
-            title: const Text("Fire Station"),
-            leading: Image.asset(
-              'assets/icons/firefighter.png',
-              height: 30,
-              width: 30,
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            topRight: Radius.circular(15)),
-                        child: SearchingForNearestAmbulance(
-                          title: "Fire Station",
-                          onTap: () {
-                            AppNavigationHelper.navigateToWidget(
-                                context, AmbulanceScreen());
-                          },
-                        ));
-                  });
-            },
-          ),
-          ListTile(
-            title: const Text("Police"),
-            leading: Image.asset(
-              'assets/icons/police.png',
-              height: 30,
-              width: 30,
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            topRight: Radius.circular(15)),
-                        child: SearchingForNearestAmbulance(
-                          title: "Police Station",
-                          onTap: () {
-                            AppNavigationHelper.navigateToWidget(
-                                context, AmbulanceScreen());
-                          },
-                        ));
-                  });
-            },
-          ),
-          AppSpaces.height20
-        ],
-      ),
+        );
+      }
     );
   }
 }

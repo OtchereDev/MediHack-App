@@ -1,4 +1,4 @@
-const String kBaseUrl = "https://api.spectrahealthgh.com";
+const String kBaseUrl = "https://medihack-long-morning-9882.fly.dev";
 const String kGoogleApiKey = "AIzaSyBYHURH4hj-Qy5Pskwh3fevaYqpFhPqHPQ";
 
 //"AIzaSyCcGeOs6pbNgrCSvMarV34r0Oit6eEewtw";
@@ -19,6 +19,6 @@ List<Map<String, dynamic>> buttonName = [
 
 const messi = "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcQZ6zHnYqqz0B-_1aq8wPayo1_bFn_CES3fqvITmR8aoHNm27Q5mXxF-aMHAWVQavmLZ4kBu2YnkCu5Xyk";
 
-const tempAgoraKeys ="007eJxTYLi2q3BXO2d35Ov0q78/GMy5JBnBH7FD9S3PZnXB1408CzYpMKRaWhgam6RYpJmYG5pYGKRYWJpYmicbWSSlmhhbmhmbWSROSmsIZGSYxFTLwsgAgSA+P0NqbmpRempecmV8Yk5qUQkDAwDNciMK";
-const agoraApiKey = "e98134d8f471480d89497c28be439636";
+const appID =1598682070;
+const appSign = "16457ace4067ffa4e3f3d94b42fa968d0aa1ae576e0d6f0752f483adab864411";
 const channelName = "emergency_alert";

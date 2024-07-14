@@ -1,4 +1,5 @@
 import 'package:emergency_alert/AppTheme/app_config.dart';
+import 'package:emergency_alert/Views/Contacts/my_contacts.dart';
 import 'package:emergency_alert/Views/Home/home_page.dart';
 import 'package:emergency_alert/Views/Home/nearby_hospitals.dart';
 import 'package:emergency_alert/Widgets/call_button.dart';
@@ -37,15 +38,16 @@ class _BaseHomePageState extends State<BaseHomePage> {
   Widget build(BuildContext context) {
     List<Widget> _widgetOptions = <Widget>[
       HomePage(),
-      Text("data"),
-      Text("data"),
-      NearbyHospital(),
+      const Text("data"),
+      const Text(""),
+      const MyContacts(),
+      const NearbyHospital(),
     ];
     return Scaffold(
       backgroundColor: AppColors.WHITE,
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-      floatingActionButton:  Padding(
-        padding: const EdgeInsets.only(bottom:4.0),
+      floatingActionButton:  const Padding(
+        padding: EdgeInsets.only(bottom:4.0),
         child: CallButton()
       ),
       floatingActionButtonLocation : FloatingActionButtonLocation.centerDocked,
@@ -54,14 +56,14 @@ class _BaseHomePageState extends State<BaseHomePage> {
         onTap: _onItemTapped,
         
         items:  <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             activeIcon:
                 SizedBox(width: 23, height: 23, child: Icon(FeatherIcons.home)),
             icon:
                 SizedBox(width: 23, height: 23, child: Icon(FeatherIcons.home)),
             label: ('Home'),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: SizedBox(
          
               child: Padding(
@@ -74,17 +76,17 @@ class _BaseHomePageState extends State<BaseHomePage> {
             icon: SizedBox(
          
               child: Padding(
-                  padding: EdgeInsets.all(2.0),
+                  padding: const EdgeInsets.all(2.0),
                   child: Container(height: 30,width: 30,)),
             ),
                  label: ('Appointments'),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon:
                 SizedBox(width: 23, height: 23, child: Icon(FeatherIcons.user)),
             label: ('Contacts'),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon:
                 SizedBox(width: 23, height: 23, child: Icon(FeatherIcons.settings)),
             label: ('Settings'),
