@@ -16,10 +16,10 @@ class ResponderHomeScreen extends StatelessWidget {
     return Consumer<ProfileProvider>(
       builder: (context, profile, _) {
         return StreamBuilder<dynamic>(
-          stream: CallService().listenForIncomingRequest(profile.currentUserProfile!.id.toString()),
+          stream: CallService().listenForIncomingRequest("K1234567890"),
           builder: (context, snapshot) {
-            print(snapshot.data?.toMap());
             if (snapshot.hasData && snapshot.data != null) {
+            // print(snapshot.data['data']['currentRideDetails']['destinationInText']);
               return IncomingCallWidget(call: snapshot.data!);
             }
             return Scaffold(

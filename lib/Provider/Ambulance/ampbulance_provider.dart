@@ -5,6 +5,7 @@ import 'package:emergency_alert/Model/Ride/ride_search_response.dart';
 import 'package:emergency_alert/Model/abulance_model.dart';
 import 'package:emergency_alert/Services/Remote/Emergency/emergency_services.dart';
 import 'package:emergency_alert/Services/Remote/RideRequest/ride_request_service.dart';
+import 'package:emergency_alert/Views/Ambulance/ampbulance_page.dart';
 import 'package:emergency_alert/Views/Ambulance/booking_and_waiting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,6 +23,9 @@ class AmbulanceStatusProvider with ChangeNotifier {
 
   RideSearchResponse? _rideSearchResponse;
   RideSearchResponse? get rideSearchResponse => _rideSearchResponse;
+
+  dynamic _tripData;
+  dynamic get tripData => _tripData;
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -51,6 +55,7 @@ class AmbulanceStatusProvider with ChangeNotifier {
 
   AmbulanceStatusProvider() {
     _firestore
+        
         .collection('ambulances')
         .doc('currentStatus')
         .snapshots()
@@ -58,6 +63,18 @@ class AmbulanceStatusProvider with ChangeNotifier {
       _ambulanceStatus =
           AmbulanceStatus.fromMap(snapshot.data() as Map<String, dynamic>);
       notifyListeners();
+    });
+  }
+
+  getTripDetails() {
+    _firestore
+     .collection('driver_locations')
+        .doc('K1234567890')
+        .snapshots()
+        .listen((snapshot) {
+      _tripData = (snapshot.data() as Map<String, dynamic>);
+      notifyListeners();
+      print("=================$_tripData==================");
     });
   }
 
@@ -101,9 +118,8 @@ class AmbulanceStatusProvider with ChangeNotifier {
         if (response['data']['data'] != null) {
           bookRide(context, {}).then((val) {});
         }
-      }else{
-    
-         customDailog(
+      } else {
+        customDailog(
             isSuccess: false,
             message: response['data']['msg'].toString(),
             title: 'Failed',
@@ -132,14 +148,42 @@ class AmbulanceStatusProvider with ChangeNotifier {
       setLoadingRideRequest(false);
       print("RIDE BOOK: $response");
       if (response['status'] == true) {
-        AppNavigationHelper.navigateToWidget(context, BookingAndWaitingPage());
-      }else{
-         customDailog(
+        AppNavigationHelper.navigateToWidget(context, AmbulanceScreen());
+      } else {
+        customDailog(
             isSuccess: false,
             message: response['data']['msg'].toString(),
             title: 'Failed',
             icon: Icon(Icons.warning_amber));
       }
     });
+  }
+
+  Future<bool?> acceptRequest(context, data) async {
+    setLoadingRide(true);
+    Map<String, dynamic> data = {
+      "status": "ACCEPT",
+      "driverId": "K1234567890",
+      "action": "ACCEPT-RIDE"
+    };
+    bool? isAccepted = null;
+
+    await _rideRequestService.acceptRequest(context, data).then((response) {
+      setLoadingRide(false);
+      print("ACCEPT REQUEST: $response");
+      if (response['status'] == true) {
+        isAccepted = true;
+        notifyListeners();
+      } else {
+        isAccepted = false;
+        notifyListeners();
+        customDailog(
+            isSuccess: false,
+            message: response['data']['msg'].toString(),
+            title: 'Failed',
+            icon: Icon(Icons.warning_amber));
+      }
+    });
+    return isAccepted;
   }
 }

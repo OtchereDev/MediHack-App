@@ -39,22 +39,21 @@ class CallService {
       return null;
     });
   }
-
-  Stream<dynamic> listenForIncomingRequest(String userID) {
-    return _firestore
-        .collection('driver_locations')
-        .doc('K1234567890')
-        .collection("K1234567890")
-        .where('status', isEqualTo: "CALLED")
-        .snapshots()
-        .map((snapshot) {
-      if (snapshot.docs.isNotEmpty) {
-        return Call.fromMap(snapshot.docs.first.data());
+Stream<dynamic> listenForIncomingRequest(String driverId) {
+  return _firestore
+      .collection('driver_locations')
+      .doc(driverId)
+      .snapshots()
+      .map((snapshot) {
+    if (snapshot.exists) {
+      var data = snapshot.data();
+      if (data!['status'] == "CALLED") {
+        return (data);
       }
-      return null;
-    });
-  }
-
+    }
+    return null;
+  });
+}
   Future<void> updateCallStatus(String callID, String status) async {
     await _firestore.collection('calls').doc(callID).update({
       'callStatus': status,
