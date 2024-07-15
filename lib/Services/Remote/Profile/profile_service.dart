@@ -48,14 +48,14 @@ class ProfileService with AuthBaseRepository implements ProfileRepository {
 
   @override
   Future changePassword(context, data) async {
-    Map<String, dynamic> response = {'successful': false, 'message': '', 'status':100};
+    Map<String, dynamic> response = {'data': null, 'message': '', 'status':true};
       // print("=====================$data====================");
     await post(context, url: "$kBaseUrl/referring-doctors/update-password", data: data)
         .then((resp) {
           // print(resp?.body);
       var decodedResp = json.decode(resp!.body);
       if (decodedResp['statusCode'] == 200) {
-        response['successful'] = true;
+        response['status'] = true;
         response['status'] = 200;
       }
       if(decodedResp['status'] == 401){
@@ -84,14 +84,11 @@ class ProfileService with AuthBaseRepository implements ProfileRepository {
 
   Future replyChat(context, data) async {
   dynamic responseMap = {"status": false, "message": "", "data": null};
-
     await post(
       context,
       url: "$kBaseUrl/firstaid/chats",
       data: jsonEncode(data)
     ).then((response) {
-      print(response?.body);
-
       if (response != null) {
         if (response.statusCode == 200) {
         var dataResponse = json.decode(response.body);
@@ -107,7 +104,49 @@ class ProfileService with AuthBaseRepository implements ProfileRepository {
     return responseMap;
   }
 
-  
+   Future<dynamic> addContact(context, data) async {
+     dynamic responseMap = {"status": false, "message": "", "data": null};
+    await post(
+      context,
+      url: "$kBaseUrl/emergency/add",
+      data: jsonEncode(data),
+    ).then((response) {
+   if (response != null) {
+        var dataResponse = json.decode(response.body);
+        if (response.statusCode == 200) {
+          responseMap['status'] = true;
+          responseMap['message'] = dataResponse['message'];
+          responseMap['data'] = dataResponse;
+        }else{
+          responseMap['message'] = dataResponse['message'];
+          responseMap['data'] = dataResponse;
+        }
+      }
+    });
+    return responseMap;
+  }
+
+   Future getContact(context) async {
+  dynamic responseMap = {"status": false, "message": "", "data": null};
+    await get(
+      context,
+      url: "$kBaseUrl/emergency",
+    ).then((response) {
+      if (response != null) {
+        if (response.statusCode == 200) {
+        var dataResponse = json.decode(response.body);
+          responseMap['status'] = true;
+          responseMap['message'] = dataResponse['message'];
+          responseMap['data'] = json.decode(response.body);
+        } else {
+          responseMap['message'] = "Something went wrong";
+          responseMap['data'] = null;
+        }
+      }
+    });
+    return responseMap;
+  }
+
   @override
   Future getMyQuestions(context) {
     // TODO: implement getMyQuestions

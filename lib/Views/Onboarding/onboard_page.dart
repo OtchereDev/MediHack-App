@@ -1,4 +1,6 @@
 import 'package:emergency_alert/AppTheme/app_config.dart';
+import 'package:emergency_alert/Core/Helpers/navigation_helper.dart';
+import 'package:emergency_alert/Views/Auth/login.dart';
 import 'package:emergency_alert/Views/GetStarted/getstarted.dart';
 import 'package:emergency_alert/Views/Onboarding/onboard_class.dart';
 import 'package:flutter/material.dart';
@@ -31,21 +33,21 @@ class _OnboardScreenState extends State<OnboardScreen> {
   final List<OnBoard> demoData = [
     OnBoard(
       // image: "assets/images/attention.png",
-      title: "Find Best Musicians All Around Your City",
+      title: "Familiarize Yourself with the SOS Button",
       description:
-          "Thousands of musicians around you are waiting to rock your event.",
+          "The SOS button is your lifeline. Press and hold it in case of an emergency to send an instant alert to your emergency contacts and local authorities.",
     ),
     OnBoard(
       // image: "assets/images/doc.png",
-      title: "Fastest Way To Book Great Musicians",
+      title: "Explore Safety Features",
       description:
-          "Find the perfect match to perform for your event and make the day remarkable.",
+          "Real-Time Tracking: Let your loved ones track your location in real-time when you feel unsafe.",
     ),
     OnBoard(
       // image: "assets/images/attention.png",
-      title: "Find Top Sessions Pros For Your Event",
+      title: "Share with Loved Ones",
       description:
-          "Find the perfect match to perform for your event and make the day remarkable.",
+          "Your safety is our mission. With Laerdal Express, you’re never alone in an emergency. Let’s get started and stay safe together!",
     ),
   ];
 
@@ -62,7 +64,10 @@ class _OnboardScreenState extends State<OnboardScreen> {
               padding: const EdgeInsets.only(top: 50.0),
               child: TextButton(
                 child: Text("Skip", style: TextStyle(color: AppColors.PRIMARYCOLOR),),
-                onPressed: () {},
+                onPressed: () {
+                        AppNavigationHelper.navigateToWidget(context, LoginPage());
+
+                },
               ),
             ),
           ),
@@ -77,21 +82,28 @@ class _OnboardScreenState extends State<OnboardScreen> {
               },
               itemBuilder: (context, index) {
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Spacer(),
                     const Spacer(),
                     CommonText(
                       text: demoData[index].title,
-                      fontSize: 35,
+                      fontSize: 25,
                       color: AppColors.WHITE,
+                      isHeader: true,
                     ),
                     AppSpaces.height16,
                     CommonText(
                       text: demoData[index].description,
                       color: AppColors.WHITE,
-                      fontSize: 20,
+                      fontSize: 15,
+                      isHeader: false,
                     ),
-                    const Spacer(),
+                    AppSpaces.height40,
+                    AppSpaces.height40,
+                    AppSpaces.height40,
+                    AppSpaces.height40,
+                    // const Spacer(),
                   ],
                 );
               },
@@ -100,16 +112,23 @@ class _OnboardScreenState extends State<OnboardScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom:20.0, left: 20, right: 20),
+              padding: const EdgeInsets.only(bottom:40.0, left: 20, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     flex: 2,
                     child: CustomButton(
-                      title: "Get Started",
+                      title: currentPage == 2 ?  "Get Started" : "Next",
                       color: AppColors.PRIMARYCOLOR,
-                      onTap: () {},
+                      onTap: () {
+                        if(currentPage == 2){
+
+                        AppNavigationHelper.navigateToWidget(context, LoginPage());
+                        }else{
+
+                        }
+                      },
                     ),
                   ),
                   const Expanded(

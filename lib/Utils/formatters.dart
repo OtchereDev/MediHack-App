@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class Formatters {
   static List<String> countryCodes = ["+233", "+234", "+44", "+1"];
@@ -79,5 +81,18 @@ class Formatters {
         List<String>.generate((replaceLength / 4).ceil(), (int _) => '**** ')
             .join('');
     return code.replaceRange(0, replaceLength, replacement);
+  }
+
+
+  static Future<void> makeCall(String number)async{
+  final Uri launchUri = Uri(
+    scheme: 'tel',
+    path: number,
+  );
+  if (await canLaunch(launchUri.toString())) {
+    await launch(launchUri.toString());
+  } else {
+    throw 'Could not launch $launchUri';
+  }
   }
 }

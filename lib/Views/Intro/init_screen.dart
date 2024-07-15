@@ -124,7 +124,7 @@ class _InitScreenState extends State<InitScreen> {
           const Duration(seconds: 2),
           () {
             return AppNavigationHelper.navigateAndReplaceWidget(
-                context,  LoginPage());
+                context,  OnboardScreen());
           },
         );
       // } else {

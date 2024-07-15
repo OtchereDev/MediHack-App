@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ChatPage extends StatefulWidget {
-  ChatPage({super.key});
+  final String title;
+  ChatPage({super.key, required this.title});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -17,7 +18,14 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final TextEditingController _controller = TextEditingController();
 
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      context.read<ChatProvider>().clearChat();
+    });
+  }
   
 
   @override
@@ -36,8 +44,8 @@ class _ChatPageState extends State<ChatPage> {
           },
         ),
         centerTitle: true,
-        title: const Text(
-          "Investment Assistant AI",
+        title:  Text(
+          widget.title,
           style: TextStyle(
               color: AppColors.PRIMARYCOLOR,
               fontSize: 16,
@@ -55,13 +63,15 @@ class _ChatPageState extends State<ChatPage> {
                       itemBuilder: (context, index) {
                         var chatData = chatProvider.messages[index];
                         return BubbleSpecialThree(
-                          text: chatData.text,
-                          color: chatData.isUser
-                              ? AppColors.SECONDARYCOLOR
+                          text: chatData.role == "system" ? "": chatData.content,
+                          color: chatData.role == "user" 
+                              ? AppColors.PRIMARYCOLOR :
+                              chatData.role == "system" ?
+                              Colors.transparent
                               : AppColors.ASH,
                           tail: false,
-                          isSender: chatData.isUser,
-                          textStyle: TextStyle(color: chatData.isUser ? Colors.white : Colors.black),
+                          isSender: chatData.role == "user" ? true: false,
+                          textStyle: TextStyle(color: chatData.role == "user" ? Colors.white : Colors.black),
                         );
 
                         // ChatBubble(
@@ -80,16 +90,16 @@ class _ChatPageState extends State<ChatPage> {
                       hint: "Type your question",
                       icon: Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: AppColors.SECONDARYCOLOR),
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.transparent),
                         child: IconButton(
                           icon: chatProvider.loadReplyMessage
                               ? CupertinoActivityIndicator(
-                                  color: AppColors.WHITE,
+                                  color: AppColors.BLACK,
                                 )
                               : Icon(
                                   FeatherIcons.send,
-                                  color: AppColors.WHITE,
+                                  color: AppColors.BLACK,
                                 ),
                           onPressed: () async {
                             await chatProvider.getReply(

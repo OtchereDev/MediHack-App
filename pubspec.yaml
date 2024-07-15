@@ -62,6 +62,7 @@ dependencies:
   feather_icons: ^1.2.0
   chat_bubbles: ^1.6.0
   cached_network_image: ^3.3.1
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:

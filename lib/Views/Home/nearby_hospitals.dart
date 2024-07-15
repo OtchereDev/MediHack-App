@@ -3,12 +3,11 @@ import 'package:emergency_alert/Component/image_viewer.dart';
 import 'package:emergency_alert/Model/Response/hospital_response.dart';
 import 'package:emergency_alert/Provider/Ambulance/ampbulance_provider.dart';
 import 'package:emergency_alert/Utils/Loaders/loader_utils.dart';
-import 'package:emergency_alert/Utils/utils.dart';
 import 'package:emergency_alert/Views/Home/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
 
 class NearbyHospital extends StatefulWidget {
   const NearbyHospital({super.key});
@@ -21,10 +20,9 @@ class _NearbyHospitalState extends State<NearbyHospital> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
-      context.read<AmbulanceStatusProvider>().getNearestHospital(context, LatLng(51.564699, -0.248392));
+      context.read<AmbulanceStatusProvider>().getNearestHospital(context, const LatLng(51.564699, -0.248392));
     });
   }
 
@@ -34,11 +32,11 @@ class _NearbyHospitalState extends State<NearbyHospital> {
       body: SafeArea(
         child: Consumer<AmbulanceStatusProvider>(
           builder: (context, emergency, _) {
-            return emergency.loadingPage ? LoadingPage() : Column(
+            return emergency.loadingPage ? const LoadingPage() : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomBack(title: "Nearby Hospital",),
-                CustomDivider(),
+                const CustomBack(title: "Nearby Hospital",),
+                const CustomDivider(),
                 AppSpaces.height20,
                 Expanded(
                   child: Padding(
@@ -89,17 +87,17 @@ class HospitalTile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("${hos.name}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),),
+                    Text("${hos.name}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),),
                     AppSpaces.height4,
-                    Text("${hos.vicinity}", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500)),
+                    Text("${hos.vicinity}", style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Open: ${(hos.openingHours?.openNow == true ? "Yes" : "No")}", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),),
-                        Text("Phone: +1 858-832-2478", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),),
+                        Text("Open: ${(hos.openingHours?.openNow == true ? "Yes" : "No")}", style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),),
+                        const Text("Phone: +1 858-832-2478", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),),
                       ],
                     ),
-                    Text("⭐⭐⭐⭐⭐ ${hos.rating ?? 0}", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),),
+                    Text("⭐⭐⭐⭐⭐ ${hos.rating ?? 0}", style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),),
                   ],
                 ),
               )
@@ -107,7 +105,7 @@ class HospitalTile extends StatelessWidget {
           ),
         ),
         AppSpaces.height8,
-        CustomDivider(),
+        const CustomDivider(),
         AppSpaces.height8,
 
       ],
@@ -126,14 +124,14 @@ class CustomBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal:20.0),
+      padding:  EdgeInsets.only(left:20.0,right: 20 ,top: Platform.isIOS ?0 : 20, bottom: 10 ),
       child: Row(
         children: [
         hasBack ?  GestureDetector(
             onTap: ()=>Navigator.pop(context),
-            child: Image.asset("assets/icons/back.png", width: 20,)) : SizedBox.shrink(),
-          hasBack ?  AppSpaces.width16  : SizedBox.shrink(),
-          Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+            child: Image.asset("assets/icons/back.png", width: 20,)) : const SizedBox.shrink(),
+          hasBack ?  AppSpaces.width16  : const SizedBox.shrink(),
+          Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
         ],
       ),
     );

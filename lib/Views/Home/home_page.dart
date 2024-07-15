@@ -8,6 +8,7 @@ import 'package:emergency_alert/Views/Ambulance/ampbulance_page.dart';
 import 'package:emergency_alert/Views/Ambulance/mapview.dart';
 import 'package:emergency_alert/Views/Ambulance/searching_nearest_ambulance.dart';
 import 'package:emergency_alert/Views/FirstAidTutorials/first_aid_tutorial.dart';
+import 'package:emergency_alert/Views/Home/emergency_numbers.dart';
 import 'package:emergency_alert/Views/Home/nearby_hospitals.dart';
 import 'package:emergency_alert/Views/VideoCall/call_hoe_page.dart';
 import 'package:emergency_alert/Views/VideoCall/service.dart';
@@ -81,7 +82,7 @@ class HomePage extends StatelessWidget {
                   TextFormWidget(
                     textController,
                     "",
-                    false,
+                    true,
                     hint: "Search...",
                     icon: const Icon(FeatherIcons.search),
                   ),
@@ -132,11 +133,14 @@ class HomePage extends StatelessWidget {
                               context, const FirstAidTutorial());
                         },
                       ),
-                      const HomeTabButton(
+                       HomeTabButton(
                         icon: "911",
                         color: Color(0xff1DB63A),
                         title: "Emergency\nNumbers",
                         textColor: Colors.black,
+                        onTap: (){
+                          AppNavigationHelper.navigateToWidget(context, EmergencyNumbers());
+                        },
                       ),
                     ],
                   )

@@ -1,5 +1,7 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:emergency_alert/Provider/Ambulance/ampbulance_provider.dart';
 import 'package:emergency_alert/Provider/Auth/login_provider.dart';
+import 'package:emergency_alert/Provider/Chat/chat_provider.dart';
 import 'package:emergency_alert/Provider/Map/map_provider.dart';
 import 'package:emergency_alert/Provider/Profile/profile_provider.dart';
 import 'package:emergency_alert/Provider/Utils/util_provider.dart';
@@ -20,7 +22,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
       name: 'Emergency', options: DefaultFirebaseOptions.currentPlatform);
 
-    runApp(const MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -36,16 +38,19 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => MapProvider()),
         ChangeNotifierProvider(create: (_) => ProfileProvider(context)),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => ChatProvider()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
+          builder: BotToastInit(),
+          navigatorObservers: [BotToastNavigatorObserver()],
           theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
               textTheme:
                   GoogleFonts.nunitoTextTheme(Theme.of(context).textTheme)),
-          home:  const InitScreen()),
+          home: const InitScreen()),
     );
   }
 }

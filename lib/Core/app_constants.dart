@@ -1,4 +1,7 @@
 const String kBaseUrl = "https://medihack-long-morning-9882.fly.dev";
+
+const CLOUDURL ="https://emergencyapp-pjzlqmyrpq-uc.a.run.app";
+
 const String kGoogleApiKey = "AIzaSyBYHURH4hj-Qy5Pskwh3fevaYqpFhPqHPQ";
 
 //"AIzaSyCcGeOs6pbNgrCSvMarV34r0Oit6eEewtw";

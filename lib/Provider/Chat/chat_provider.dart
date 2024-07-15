@@ -1,5 +1,5 @@
-
-import 'package:emergency_alert/Model/Response/chat_response.dart';
+import 'package:emergency_alert/Model/Response/chat_request.dart';
+import 'package:emergency_alert/Model/Response/chat_responsee.dart';
 import 'package:emergency_alert/Services/Remote/Profile/profile_service.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +10,7 @@ class ChatProvider extends ChangeNotifier {
   bool _loadPage = false;
   bool get isLoading => _loadPage;
 
-
-   bool _loadReplyMessage = false;
+  bool _loadReplyMessage = false;
   bool get loadReplyMessage => _loadReplyMessage;
 
   ChatResponse _chatResponse = ChatResponse();
@@ -20,7 +19,7 @@ class ChatProvider extends ChangeNotifier {
   String _threadID = "";
   String get threadID => _threadID;
 
-  List<ChatMessage> _messages = [];
+  List<ChatMessage> _messages = [ChatMessage(content: "You are nurse, that provide assistance only for first aid issues.", role: "system")];
 
   List<ChatMessage> get messages => _messages;
 
@@ -34,7 +33,7 @@ class ChatProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-   setLoadingReplyMessage(bool value) {
+  setLoadingReplyMessage(bool value) {
     _loadReplyMessage = value;
     notifyListeners();
   }
@@ -42,25 +41,28 @@ class ChatProvider extends ChangeNotifier {
   String get reply => _reply;
 
   Future<void> getReply(context, String message) async {
-    addMessage(ChatMessage(
-            text: message,
-            isUser:true));
-    Map<String, dynamic> body = {"threadId": _threadID, "message": message};
+    addMessage(ChatMessage(content: message, role: "user"));
     setLoadingReplyMessage(true);
-    await profile.replyChat(context, body).then((value) {
-    setLoadingReplyMessage(false);
+    await profile.replyChat(context, ChatRequest(
+      chats: _messages
+    ).toJson()).then((value) {
+      setLoadingReplyMessage(false);
+      // print("=============${value['data']['chats'][0]['message']['content']}");
 
       if (value['status'] == true) {
-        var mes = value['data']["response"][0];
-        addMessage(ChatMessage(
-            text: mes['content'][0]['text']['value'],
-            isUser: mes['user'] == true));
-        // _chatResponse = ChatResponse.fromJson(value['data']);
+        // var mes = value['data']["response"][0];
+        addMessage(ChatMessage(content:value['data']['chats'][0]['message']['content'],role: "assistant" ));
+        _chatResponse = ChatResponse.fromJson(value['data']);
         notifyListeners();
-      }else{
+      } else {
         print(value);
       }
     });
+  }
+
+  clearChat(){
+    _messages.removeRange(1, _messages.length);
+    notifyListeners();
   }
 
   // Future<bool> initChat(context) async {
@@ -84,9 +86,6 @@ class ChatProvider extends ChangeNotifier {
   // }
 }
 
-class ChatMessage {
-  final String text;
-  final bool isUser;
-
-  ChatMessage({required this.text, required this.isUser});
-}
+// To parse this JSON data, do
+//
+//     final chatMessage = chatMessageFromJson(jsonString);

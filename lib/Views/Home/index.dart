@@ -1,4 +1,6 @@
 import 'package:emergency_alert/AppTheme/app_config.dart';
+import 'package:emergency_alert/Core/Enums/enums.dart';
+import 'package:emergency_alert/Utils/utils.dart';
 import 'package:emergency_alert/Views/Contacts/my_contacts.dart';
 import 'package:emergency_alert/Views/Home/home_page.dart';
 import 'package:emergency_alert/Views/Home/nearby_hospitals.dart';
@@ -46,8 +48,8 @@ class _BaseHomePageState extends State<BaseHomePage> {
     return Scaffold(
       backgroundColor: AppColors.WHITE,
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-      floatingActionButton:  const Padding(
-        padding: EdgeInsets.only(bottom:4.0),
+      floatingActionButton:   Padding(
+        padding: EdgeInsets.only(bottom: Utils.screenSize(context) == ScreenSize.large ? 0 : 4.0),
         child: CallButton()
       ),
       floatingActionButtonLocation : FloatingActionButtonLocation.centerDocked,

@@ -55,6 +55,10 @@
 <string>We need to access your camera to scan car information.</string>
 <key>NSMicrophoneUsageDescription</key>
 <string>We need to access your microphone for voice input and recording features.</string>
-
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>sms</string>
+  <string>tel</string>
+</array>
 </dict>
 </plist>
