@@ -1,6 +1,8 @@
+import 'package:emergency_alert/Provider/Map/map_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -54,9 +56,10 @@ class MyLocationMapState extends State<MyLocationMap> {
         },
         markers: {
           Marker(
-            markerId: MarkerId('currentLocation'),
-            position: _currentPosition,
-          ),
+                      markerId: const MarkerId('currentLocation'),
+                      icon: context.read<MapProvider>().ambulanceIcon ?? BitmapDescriptor.defaultMarker,
+                      position: _currentPosition,
+                    ),
         },
         myLocationEnabled: true,
         myLocationButtonEnabled: true,

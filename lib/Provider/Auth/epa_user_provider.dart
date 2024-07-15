@@ -1,14 +1,12 @@
 import 'package:emergency_alert/AppTheme/app_config.dart';
 import 'package:emergency_alert/Component/custom_toast.dart';
 import 'package:emergency_alert/Model/Response/epa_user_response.dart';
-import 'package:emergency_alert/Model/Response/user_response.dart';
 import 'package:emergency_alert/Services/Local/shared_prefs_manager.dart';
 import 'package:emergency_alert/Services/Remote/Authentication/auth_remote_service.dart';
 import 'package:emergency_alert/Utils/Dialogs/dialog_utils.dart';
-import 'package:emergency_alert/Utils/Dialogs/notifications.dart';
 import 'package:flutter/material.dart';
 
-class AuthProvider extends ChangeNotifier {
+class EPAUserAuthProvider extends ChangeNotifier {
   AuthRemoteService authService = AuthRemoteService();
   final SharedPrefsManager _sharedPrefsManager = SharedPrefsManager();
   bool _loadPage = false;
@@ -41,7 +39,7 @@ class AuthProvider extends ChangeNotifier {
     setLoadingPage(true);
     bool? actionSuccessful = false;
     Map<String, dynamic> data = {"email": email, "password": password};
-    await authService.signin(context, data).then((response) async {
+    await authService.epasignin(context, data).then((response) async {
       if (response['status'] == true) {
         await _sharedPrefsManager
             .setAuthToken(response['data']['access_token']);
@@ -90,10 +88,6 @@ class AuthProvider extends ChangeNotifier {
                 ),
               ));
             });
-
-        // DialogUtils.showNativeAlertDialog(context,
-        //     title: "An error Occurred",
-        //     message: response['message'].toString());
       }
     });
     setLoadingPage(false);

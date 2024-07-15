@@ -1,26 +1,26 @@
 
 
 class RideSearchResponse {
-    bool ok;
-    String msg;
-    Data data;
+    bool? ok;
+    String? msg;
+    Data? data;
 
     RideSearchResponse({
-        required this.ok,
-        required this.msg,
-        required this.data,
+         this.ok,
+         this.msg,
+         this.data,
     });
 
     factory RideSearchResponse.fromJson(Map<String, dynamic> json) => RideSearchResponse(
         ok: json["ok"],
         msg: json["msg"],
-        data: Data.fromJson(json["data"]),
+        data:  Data.fromJson(json["data"]),
     );
 
     Map<String, dynamic> toJson() => {
         "ok": ok,
         "msg": msg,
-        "data": data.toJson(),
+        "data": data?.toJson(),
     };
 }
 

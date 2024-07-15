@@ -59,6 +59,29 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
     return responseMap;
   }
 
+ Future<dynamic> epasignin(context, data) async {
+     dynamic responseMap = {"status": false, "message": "", "data": null};
+    await post(
+      context,
+      url: "$kBaseUrl/auth/login-as-epa",
+      data: jsonEncode(data),
+    ).then((response) {
+      print(response?.body);
+   if (response != null) {
+        var dataResponse = json.decode(response.body);
+        if (response.statusCode == 201) {
+          responseMap['status'] = true;
+          responseMap['message'] = dataResponse['message'];
+          responseMap['data'] = dataResponse;
+        }else{
+          responseMap['message'] = dataResponse['message'];
+          responseMap['data'] = dataResponse;
+        }
+      }
+    });
+    return responseMap;
+  }
+
   @override
   Future<dynamic> signup(context, data) async {
     dynamic responseMap = {"status": false, "message": "", "data": null};

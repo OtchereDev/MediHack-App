@@ -2,6 +2,7 @@
 // import 'package:collector_app/Model/user_model.dart';
 import 'dart:convert';
 
+import 'package:emergency_alert/Model/Response/epa_user_response.dart';
 import 'package:emergency_alert/Model/Response/user_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -51,12 +51,12 @@ class _SearchingForNearestAmbulanceState
                       ),
                     )),
                   )
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
             Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   width: double.infinity,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: AppColors.WHITE,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
@@ -69,10 +69,10 @@ class _SearchingForNearestAmbulanceState
                      ambulance.loadingRide ?  Text(
                         "Searching for nearest available ${widget.title}",
                         style: const TextStyle(fontSize: 17),
-                      ): SizedBox.shrink(),
-                      Text("${ambulance.rideSearchResponse?.msg}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+                      ): const SizedBox.shrink(),
+                     ambulance.loadingRide ? const Text("Searching...") : Text(ambulance.rideSearchResponse?.data != null  ? "1 First Responsder found":"All ambulance are busy try again.", style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
                       AppSpaces.height20,
-                      Text("Making request for a/an ${widget.title}, please wait", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),),
+                    ambulance.loadingRide ?  const SizedBox.shrink():   Text("Making request for a/an ${widget.title}, please wait", style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400),),
                       AppSpaces.height20,
                       AppSpaces.height20,
 

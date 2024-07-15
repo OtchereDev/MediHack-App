@@ -40,6 +40,21 @@ class CallService {
     });
   }
 
+  Stream<dynamic> listenForIncomingRequest(String userID) {
+    return _firestore
+        .collection('driver_locations')
+        .doc('K1234567890')
+        .collection("K1234567890")
+        .where('status', isEqualTo: "CALLED")
+        .snapshots()
+        .map((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        return Call.fromMap(snapshot.docs.first.data());
+      }
+      return null;
+    });
+  }
+
   Future<void> updateCallStatus(String callID, String status) async {
     await _firestore.collection('calls').doc(callID).update({
       'callStatus': status,

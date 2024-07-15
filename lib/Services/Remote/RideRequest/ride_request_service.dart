@@ -16,10 +16,10 @@ class RideRequestService with AuthBaseRepository{
         var dataResponse = json.decode(response.body);
         if (dataResponse['ok'] == true) {
           responseMap['status'] = true;
-          responseMap['message'] = dataResponse['message'];
+          responseMap['message'] = dataResponse['msg'];
           responseMap['data'] = dataResponse;
         }else{
-          responseMap['message'] = dataResponse['message'];
+          responseMap['message'] = dataResponse['msg'];
           responseMap['data'] = dataResponse;
         }
       }
@@ -36,12 +36,12 @@ class RideRequestService with AuthBaseRepository{
     ).then((response) {
    if (response != null) {
         var dataResponse = json.decode(response.body);
-        if (response.statusCode == 200) {
+        if (dataResponse['okay'] == true) {
           responseMap['status'] = true;
-          responseMap['message'] = dataResponse['message'];
+          responseMap['message'] = dataResponse['msg'];
           responseMap['data'] = dataResponse;
         }else{
-          responseMap['message'] = dataResponse['message'];
+          responseMap['message'] = dataResponse['msg'];
           responseMap['data'] = dataResponse;
         }
       }
@@ -58,12 +58,12 @@ class RideRequestService with AuthBaseRepository{
     ).then((response) {
    if (response != null) {
         var dataResponse = json.decode(response.body);
-        if (response.statusCode == 200) {
+        if (dataResponse['ok'] == true) {
           responseMap['status'] = true;
-          responseMap['message'] = dataResponse['message'];
+          responseMap['message'] = dataResponse['msg'];
           responseMap['data'] = dataResponse;
         }else{
-          responseMap['message'] = dataResponse['message'];
+          responseMap['message'] = dataResponse['msg'];
           responseMap['data'] = dataResponse;
         }
       }
@@ -82,10 +82,10 @@ class RideRequestService with AuthBaseRepository{
         var dataResponse = json.decode(response.body);
         if (response.statusCode == 200) {
           responseMap['status'] = true;
-          responseMap['message'] = dataResponse['message'];
+          responseMap['message'] = dataResponse['msg'];
           responseMap['data'] = dataResponse;
         }else{
-          responseMap['message'] = dataResponse['message'];
+          responseMap['message'] = dataResponse['msg'];
           responseMap['data'] = dataResponse;
         }
       }

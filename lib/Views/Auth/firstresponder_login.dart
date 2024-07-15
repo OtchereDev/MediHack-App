@@ -3,17 +3,18 @@ import 'package:emergency_alert/Component/passwordField.dart';
 import 'package:emergency_alert/Component/textformfield.dart';
 import 'package:emergency_alert/Core/Helpers/navigation_helper.dart';
 import 'package:emergency_alert/Core/app_constants.dart';
+import 'package:emergency_alert/EMAUser/call_hoe_page.dart';
+import 'package:emergency_alert/Provider/Auth/epa_user_provider.dart';
 import 'package:emergency_alert/Provider/Auth/login_provider.dart';
 import 'package:emergency_alert/Utils/Loaders/loader_utils.dart';
-import 'package:emergency_alert/Views/Auth/firstresponder_login.dart';
 import 'package:emergency_alert/Views/Auth/signup.dart';
 import 'package:emergency_alert/Views/GetStarted/getstarted.dart';
 import 'package:emergency_alert/Views/Home/index.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class ResponderLoginPage extends StatelessWidget {
+  ResponderLoginPage({super.key});
   final textController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -24,9 +25,9 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Consumer<AuthProvider>(builder: (context, auth, _) {
+          child: Consumer<EPAUserAuthProvider>(builder: (context, auth, _) {
             return auth.loadPage
-                ? LoadingPage()
+                ? const LoadingPage()
                 : Form(
                     key: formKey,
                     child: Column(
@@ -38,7 +39,7 @@ class LoginPage extends StatelessWidget {
                           scale: 3,
                         )),
                         const Text(
-                          "Login",
+                          "Login as responder",
                           style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.w600,
@@ -91,7 +92,7 @@ class LoginPage extends StatelessWidget {
                                     .then((value) {
                                   if (value == true) {
                                     AppNavigationHelper.navigateToWidget(
-                                        context, BaseHomePage());
+                                        context, const ResponderHomeScreen());
                                   }
                                 });
                               }
@@ -114,26 +115,6 @@ class LoginPage extends StatelessWidget {
                                           decoration: TextDecoration.underline))
                                 ],
                                     text: "Dont have an account? ",
-                                    style: TextStyle(color: AppColors.BLACK))),
-                          ),
-                        ),
-                        AppSpaces.height16,
-                        Center(
-                          child: GestureDetector(
-                            onTap: () {
-                              AppNavigationHelper.navigateToWidget(
-                                  context, ResponderLoginPage());
-                            },
-                            child: RichText(
-                                text: const TextSpan(
-                                    children: [
-                                  TextSpan(
-                                      text: "Login here",
-                                      style: TextStyle(
-                                          color: AppColors.PRIMARYCOLOR,
-                                          decoration: TextDecoration.underline))
-                                ],
-                                    text: "Are you a first responder? ",
                                     style: TextStyle(color: AppColors.BLACK))),
                           ),
                         )

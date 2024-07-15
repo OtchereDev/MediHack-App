@@ -1,8 +1,7 @@
-import 'dart:convert';
 
 import 'package:emergency_alert/Component/custom_toast.dart';
 import 'package:emergency_alert/Model/Response/emergecncy_contact.dart';
-import 'package:emergency_alert/Model/Response/user_response.dart';
+import 'package:emergency_alert/Model/Response/epa_user_response.dart';
 import 'package:emergency_alert/Services/Local/shared_prefs_manager.dart';
 import 'package:emergency_alert/Services/Remote/LocationService/location_service.dart';
 import 'package:emergency_alert/Services/Remote/Profile/profile_service.dart';
@@ -43,7 +42,7 @@ class ProfileProvider extends ChangeNotifier {
   String getUserFullname() {
     String fullName = "";
     if (_currentUserProfile != null) {
-      fullName = _currentUserProfile!.name;
+      fullName = _currentUserProfile!.name!;
     }
     return fullName;
   }

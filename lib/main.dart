@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:emergency_alert/Provider/Ambulance/ampbulance_provider.dart';
+import 'package:emergency_alert/Provider/Auth/epa_user_provider.dart';
 import 'package:emergency_alert/Provider/Auth/login_provider.dart';
 import 'package:emergency_alert/Provider/Chat/chat_provider.dart';
 import 'package:emergency_alert/Provider/Map/map_provider.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => MapProvider()),
         ChangeNotifierProvider(create: (_) => ProfileProvider(context)),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => EPAUserAuthProvider()),
         ChangeNotifierProvider(create: (_) => ChatProvider()),
       ],
       child: MaterialApp(
